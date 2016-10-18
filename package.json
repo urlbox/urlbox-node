@@ -1,0 +1,62 @@
+{
+  "name": "urlbox",
+  "version": "1.0.2",
+  "description": "Generate screenshots with node.js using the urlbox.io screenshot as a service API",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "ava",
+    "compile": "babel --presets es2015 --plugins transform-remove-console -d lib/ src/",
+    "prepublish": "npm run compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/urlbox-io/urlbox-screenshots-node.git"
+  },
+  "keywords": [
+    "screenshots",
+    "urlbox",
+    "urlbox.io",
+    "phantom",
+    "phantomjs",
+    "screenshot",
+    "website",
+    "retina",
+    "headless",
+    "chrome",
+    "blink",
+    "render",
+    "page",
+    "webkit",
+    "webkit2png",
+    "url2png",
+    "fullpage",
+    "fullheight"
+  ],
+  "author": "Chris Roebuck",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/urlbox-io/urlbox-screenshots-node/issues"
+  },
+  "homepage": "https://github.com/urlbox-io/urlbox-screenshots-node#readme",
+  "dependencies": {
+    "crypto-js": "^3.1.7",
+    "lodash": "^4.16.4",
+    "lodash.includes": "^4.3.0"
+  },
+  "devDependencies": {
+    "ava": "^0.16.0",
+    "babel-cli": "^6.16.0",
+    "babel-plugin-transform-remove-console": "^6.8.0",
+    "babel-preset-es2015": "^6.16.0"
+  },
+  "ava": {
+    "babel": {
+      "presets": [
+        "es2015"
+      ],
+      "plugins": [
+        "transform-remove-console"
+      ]
+    }
+  }
+}
