@@ -29,7 +29,7 @@ const toQueryString = (options) => {
       if (value === undefined || value === null || value === "" || value === 0) {
         return false;
       }
-      if (includes(['url', 'user_agent', 'bg_color', 'hide_selector'], key)) {
+      if (includes(['url', 'user_agent', 'bg_color', 'hide_selector', 'click_selector', 'highlight', 'highlightbg', 'highlightfg'], key)) {
         value = encodeURIComponent(value);
       }
       if (includes(['force', 'retina', 'full_page', 'disable_js'], key) && !value) {
