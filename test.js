@@ -1,4 +1,5 @@
 'use strict';
+console.log('hi');
 import test from 'ava';
 import crypto from 'crypto';
 import qs from 'querystring';
@@ -13,8 +14,8 @@ import urlboxFactory from './lib/index';
 //     t.is(await bar, 'bar');
 // });
 
-const myapikey = '12345';
-const mysecret = '54321';
+const myapikey = 'MY_API_KEY';
+const mysecret = 'secret';
 const prefix = 'https://api.urlbox.io/v1/';
 const urlbox = urlboxFactory(myapikey, mysecret);
 var delay, full_page, height, url, width;
@@ -30,6 +31,7 @@ test('should return a url with a valid token and query string', t => {
   const result = urlbox.buildUrl(options);
   const token = crypto.createHmac("sha1", mysecret).update(query).digest("hex");
   t.truthy(result);
+  console.log(result);
   t.is(result, "https://api.urlbox.io/v1/" + myapikey + "/" + token + "/png?" + query);
 });
 test('should return a url with a valid token and query string with width param', t => {

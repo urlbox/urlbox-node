@@ -14,7 +14,7 @@ module.exports = (key, secret, prefix = DEFAULT_PREFIX) => {
       options = validateOptions(options);
       const query = toQueryString(options);
       const token = generateToken(query, secret);
-      return `${prefix}${key}/${token}/${options.format}?${query}`;
+      return `${prefix}${key}/${token}/${options.format || 'png'}?${query}`;
     }
   }
 };
@@ -32,7 +32,7 @@ const toQueryString = (options) => {
       if (includes(['url', 'user_agent', 'bg_color', 'hide_selector', 'click_selector', 'highlight', 'highlightbg', 'highlightfg'], key)) {
         value = encodeURIComponent(value);
       }
-      if (includes(['force', 'retina', 'full_page', 'disable_js'], key) && !value) {
+      if (includes(['force', 'flash', 'retina', 'full_page', 'disable_js'], key) && !value) {
         return false;
       }
       return `${key}=${value}`;
