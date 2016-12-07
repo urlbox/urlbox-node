@@ -1,6 +1,6 @@
 {
   "name": "urlbox",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Generate screenshots with node.js using the urlbox.io screenshot as a service API",
   "main": "lib/index.js",
   "scripts": {

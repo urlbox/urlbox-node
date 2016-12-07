@@ -19,6 +19,13 @@ module.exports = (key, secret, prefix = DEFAULT_PREFIX) => {
   }
 };
 
+const encodedProperties = ['url', 'user_agent', 'bg_color', 
+'hide_selector', 'click_selector', 
+'highlight', 'highlightbg', 'highlightfg', 's3_path'];
+
+const booleanProperties = ['force', 'flash', 'retina', 
+'full_page', 'disable_js', 'use_s3', 'debug'];
+
 const generateToken = (queryString, secret) => hmacSha1(queryString, secret);
 
 const toQueryString = (options) => {
@@ -29,10 +36,10 @@ const toQueryString = (options) => {
       if (value === undefined || value === null || value === "" || value === 0) {
         return false;
       }
-      if (includes(['url', 'user_agent', 'bg_color', 'hide_selector', 'click_selector', 'highlight', 'highlightbg', 'highlightfg'], key)) {
+      if (includes(encodedProperties, key)) {
         value = encodeURIComponent(value);
       }
-      if (includes(['force', 'flash', 'retina', 'full_page', 'disable_js'], key) && !value) {
+      if (includes(booleanProperties, key) && !value) {
         return false;
       }
       return `${key}=${value}`;
