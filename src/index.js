@@ -1,6 +1,7 @@
 'use strict';
 const hmacSha1 = require('crypto-js/hmac-sha1');
 const includes = require('lodash.includes');
+const qs = require('qs');
 
 const DEFAULT_PREFIX = 'https://api.urlbox.io/v1/';
 const DEFAULT_OPTIONS = {
@@ -21,30 +22,19 @@ module.exports = (key, secret, prefix = DEFAULT_PREFIX) => {
 
 const encodedProperties = ['url', 'user_agent', 'bg_color', 
 'hide_selector', 'click_selector', 
-'highlight', 'highlightbg', 'highlightfg', 's3_path'];
+'highlight', 'highlightbg', 'highlightfg', 's3_path', 'cookies'];
 
 const booleanProperties = ['force', 'flash', 'retina', 
 'full_page', 'disable_js', 'use_s3', 'debug'];
 
 const generateToken = (queryString, secret) => hmacSha1(queryString, secret);
 
-const toQueryString = (options) => {
+const toQueryString = options => {
   const vals = Object.keys(options)
     .filter(key => !includes(['format'], key))
-    .map(key => {
-      let value = options[key];
-      if (value === undefined || value === null || value === "" || value === 0) {
-        return false;
-      }
-      if (includes(encodedProperties, key)) {
-        value = encodeURIComponent(value);
-      }
-      if (includes(booleanProperties, key) && !value) {
-        return false;
-      }
-      return `${key}=${value}`;
-    });
-  return vals.filter(v => v).join('&');
+    .filter(key => includes(booleanProperties, key) && !value)
+    .filter(key => options[key] === undefined || options[key] === null || options[key] === "" || options[key] === 0);
+  return qs.stringify(vals);
 };
 
 const validateOptions = (options) => {
