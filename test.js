@@ -192,6 +192,19 @@ test('should error if no url', t => {
   t.throws(() => urlbox.buildUrl(), "no options object passed");
 });
 test('should error if url is wrong type', t => {
-    let options = {url: 2};
-    t.throws(() => urlbox.buildUrl(options),"url should be of type string (something like www.google.com)");
+  let options = {url: 2};
+  t.throws(() => urlbox.buildUrl(options),"url should be of type string (something like www.google.com)");
+});
+test('cookies', t => {
+  const options = {
+    url: 'bbc.co.uk',
+    cookie: ['CookieOptIn=true;Path=/;Domain=.marktplaats.nl;Expires=Fri, 01-Jan-2027 15:19:58 GMT',
+      'LoggedIn=true;Path=/;Domain=.urlbox.io;Max-Age=10000']
+  };
+  const query = 'url=bbc.co.uk&' + options.cookie.map((c,i) => 'cookie=' + encodeURIComponent(c)).join('&') ;
+  options.format = 'png';
+  const token = crypto.createHmac("sha1", mysecret).update(query).digest("hex");
+  const result = urlbox.buildUrl(options);
+  t.truthy(result);
+  t.is(result, prefix + myapikey + "/" + token + "/png?" + query);
 });

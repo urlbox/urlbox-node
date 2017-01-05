@@ -20,21 +20,16 @@ module.exports = (key, secret, prefix = DEFAULT_PREFIX) => {
   }
 };
 
-const encodedProperties = ['url', 'user_agent', 'bg_color', 
-'hide_selector', 'click_selector', 
-'highlight', 'highlightbg', 'highlightfg', 's3_path', 'cookies'];
-
-const booleanProperties = ['force', 'flash', 'retina', 
-'full_page', 'disable_js', 'use_s3', 'debug'];
-
 const generateToken = (queryString, secret) => hmacSha1(queryString, secret);
 
 const toQueryString = options => {
-  const vals = Object.keys(options)
-    .filter(key => !includes(['format'], key))
-    .filter(key => includes(booleanProperties, key) && !value)
-    .filter(key => options[key] === undefined || options[key] === null || options[key] === "" || options[key] === 0);
-  return qs.stringify(vals);
+  const filterFunc = function (key, value) {
+    console.log('in filter', key, value);
+    if(key === 'format'){return;}
+    if(!value){return;}
+    return value;
+  };
+  return qs.stringify(options, {encoder: encodeURIComponent, filter: filterFunc, arrayFormat: 'repeat'});
 };
 
 const validateOptions = (options) => {
