@@ -1,5 +1,4 @@
 'use strict';
-const hmacSha1 = require('crypto-js/hmac-sha1');
 const includes = require('lodash.includes');
 const qs = require('qs');
 
@@ -8,28 +7,39 @@ const DEFAULT_OPTIONS = {
   format: 'png',
 };
 
-module.exports = (key, secret, prefix = DEFAULT_PREFIX) => {
+module.exports = (key, secret = null, prefix = DEFAULT_PREFIX) => {
   return {
     buildUrl: (options) => {
       console.log(options);
       options = validateOptions(options);
       const query = toQueryString(options);
-      const token = generateToken(query, secret);
-      return `${prefix}${key}/${token}/${options.format || 'png'}?${query}`;
+      if(secret){
+        const token = generateToken(query, secret);
+        return `${prefix}${key}/${token}/${options.format || 'png'}?${query}`;
+      } else {
+        // tokenless URL
+        return `${prefix}${key}/${options.format || 'png'}?${query}`;
+      }
+      
     }
   }
 };
 
-const generateToken = (queryString, secret) => hmacSha1(queryString, secret);
+const generateToken = (queryString, secret) => {
+  const hmacSha1 = require('crypto-js/hmac-sha1');
+  return hmacSha1(queryString, secret);
+}
 
 const toQueryString = options => {
-  const filterFunc = function (key, value) {
+  const filterFunc = (key, value) => {
     console.log('in filter', key, value);
     if(key === 'format'){return;}
     if(!value){return;}
     return value;
   };
-  return qs.stringify(options, {encoder: encodeURIComponent, filter: filterFunc, arrayFormat: 'repeat'});
+  const fixedEncodeURIComponent = (str) => 
+    encodeURIComponent(str).replace(/[!'()*]/g, c => '%' + c.charCodeAt(0).toString(16))
+  return qs.stringify(options, {encoder: fixedEncodeURIComponent, filter: filterFunc, arrayFormat: 'repeat'});
 };
 
 const validateOptions = (options) => {
