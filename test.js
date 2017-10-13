@@ -1,7 +1,7 @@
 'use strict';
 import crypto from 'crypto';
 import qs from 'qs';
-import urlboxFactory from './lib/index';
+import urlboxFactory from './dist/index';
 
 const myapikey = 'MY_API_KEY';
 const mysecret = 'secret';

@@ -1,6 +1,7 @@
 'use strict';
 const includes = require('lodash.includes');
 const qs = require('qs');
+const hmacSha1 = require('crypto-js/hmac-sha1');
 
 const DEFAULT_PREFIX = 'https://api.urlbox.io/v1/';
 const DEFAULT_OPTIONS = {
@@ -26,7 +27,6 @@ module.exports = (key, secret = null, prefix = DEFAULT_PREFIX) => {
 };
 
 const generateToken = (queryString, secret) => {
-  const hmacSha1 = require('crypto-js/hmac-sha1');
   return hmacSha1(queryString, secret);
 }
 
