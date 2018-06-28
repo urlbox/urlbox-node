@@ -3,25 +3,23 @@ const includes = require("lodash.includes");
 const qs = require("qs");
 const hmacSha1 = require("crypto-js/hmac-sha1");
 
-const DEFAULT_PREFIX = "https://api.urlbox.io/s";
+// const DEFAULT_PREFIX = "https://api.urlbox.io/s";
+const DEFAULT_PREFIX = "https://api.urlbox.io/v1/";
 const DEFAULT_OPTIONS = {
   format: "png"
 };
 
 module.exports = (key, secret = null, prefix = DEFAULT_PREFIX) => {
-  const oldPrefix = "https://api.urlbox.io/v1/";
   return {
     buildUrl: options => {
-      console.log(options);
       options = validateOptions(options);
       const query = toQueryString(options, true);
       if (secret) {
         const token = generateToken(query, secret);
-        return `${oldPrefix}${key}/${token}/${options.format ||
-          "png"}?${query}`;
+        return `${prefix}${key}/${token}/${options.format || "png"}?${query}`;
       } else {
         // tokenless URL
-        return `${oldPrefix}${key}/${options.format || "png"}?${query}`;
+        return `${prefix}${key}/${options.format || "png"}?${query}`;
       }
     },
     buildUrls: options => {
