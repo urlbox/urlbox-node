@@ -1,17 +1,24 @@
 {
   "name": "urlbox",
-  "version": "1.3.3",
-  "description": "Generate screenshots with node.js using the urlbox.io screenshot as a service API",
-  "main": "dist/index.js",
+  "version": "2.0.0",
+  "description": "Generate screenshots, PDFs and other renders from URLs or HTML using the urlbox.io screenshot as a service API",
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "compile": "babel -d dist/ src/",
-    "prepublish": "npm test && npm run compile"
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "compile": "rm -fr dist/* && tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && ./fixup",
+    "prepublishOnly": "npm run compile && npm run test"
+  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/mjs/index.js",
+      "require": "./dist/cjs/index.js"
+    }
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/urlbox-io/urlbox-screenshots-node.git"
+    "url": "git+https://github.com/urlbox/urlbox-node.git"
   },
   "keywords": [
     "screenshots",
@@ -36,22 +43,18 @@
   "author": "Chris Roebuck",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/urlbox-io/urlbox-screenshots-node/issues"
+    "url": "https://github.com/urlbox/urlbox-node/issues"
   },
-  "homepage": "https://github.com/urlbox-io/urlbox-screenshots-node#readme",
+  "homepage": "https://github.com/urlbox/urlbox-node#readme",
   "dependencies": {
-    "crypto-js": "^3.1.9-1",
-    "lodash": "^4.17.10",
-    "lodash.includes": "^4.3.0",
-    "qs": "^6.5.2"
+    "crypto-js": "4.2.0",
+    "lodash": "^4.17.21",
+    "qs": "^6.11.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-jest": "^23.2.0",
-    "babel-plugin-transform-remove-console": "^6.9.4",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-minify": "^0.4.3",
-    "jest": "^23.2.0",
-    "regenerator-runtime": "^0.12.0"
+    "@types/crypto-js": "^4.1.3",
+    "@types/qs": "^6.9.9",
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.6"
   }
 }
