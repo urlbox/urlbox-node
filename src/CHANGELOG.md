@@ -1,3 +1,9 @@
+# v2.0.1
+
+## Improvements
+
+- Add `types` to package.json
+
 # v2.0.0
 
 ## Breaking Changes
