@@ -204,6 +204,70 @@ type CommonOptions = Partial<{
   video_chrome_height: number;
   video_crop_w: number;
   video_jitter: number;
+
+  disable_mql: boolean;
+  disable_resize: boolean;
+  disable_events: string | string[];
+  optimise: boolean;
+  skip_fonts: boolean;
+  scroll_height: number;
+  accept_lang: string;
+  authorization: string;
+  pdf_show_header: boolean;
+  pdf_show_footer: boolean;
+
+  pdf_auto_crop: boolean;
+  download: string;
+  no_suffix: boolean;
+  referer: string;
+  referrer: string;
+  disable_ligatures: boolean;
+  accept_dialogs: boolean;
+  custom_id: any;
+  renderer: string;
+  skip_wait: boolean | undefined;
+  skip_wait_for_modifications: any;
+  skip_wait_for_images: any;
+  watermark_url: string;
+  watermark_width: string;
+  watermark_height: string;
+  watermark_bgcolor: string;
+  watermark_opacity: number;
+  watermark_blend: string;
+  watermark_repeat: string;
+  watermark_position: string;
+  watermark_angle: string;
+  watermark_style: any;
+  img_fit: "cover" | "contain" | "fill" | "inside" | "outside";
+  img_bg: string;
+  img_position:
+    | "top"
+    | "right top"
+    | "right"
+    | "right bottom"
+    | "bottom"
+    | "left bottom"
+    | "left"
+    | "left top"
+    | "center"
+    | "centre"
+    | "north"
+    | "northeast"
+    | "east"
+    | "southeast"
+    | "south"
+    | "southwest"
+    | "west"
+    | "northwest"
+    | "center"
+    | "centre"
+    | "entropy"
+    | "attention";
+  srgb: boolean;
+  rgb: boolean;
+  gamma24: boolean;
+  response_type: "json" | "jsondebug" | "binary" | "base64" | "none";
+  global_timeout: number;
 }>;
 
 const formats = [

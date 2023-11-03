@@ -1,6 +1,6 @@
 "use strict";
 import qs from "qs";
-import hmacSha256 from "crypto-js/hmac-sha256";
+import hmacSha256 from "crypto-js/hmac-sha256.js";
 import { RenderOptions } from "./types";
 
 const DEFAULT_PREFIX = "https://api.urlbox.io/v1/";
