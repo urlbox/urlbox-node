@@ -63,3 +63,5 @@ const validateOptions = (options: RenderOptions) => {
   }
   return Object.assign({}, DEFAULT_OPTIONS, options);
 };
+
+export { RenderOptions };
