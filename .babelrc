@@ -1,4 +1,4 @@
 {
-  "presets": ["env", "minify"],
+  "presets": ["@babel/preset-env", "minify"],
   "plugins": ["transform-remove-console"]
 }
