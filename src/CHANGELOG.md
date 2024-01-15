@@ -1,3 +1,17 @@
+# v2.0.3
+
+## Improvements
+
+- Export `RenderOptions` type, thanks to [DigiPie](https://github.com/DigiPie) [#17](https://github.com/urlbox/urlbox-node/pull/17)
+- Updated dependencies
+
+# v2.0.2
+
+## Improvements
+
+- Added more options to `RenderOptions` type
+- Made hmacSha256 import more explicit
+
 # v2.0.1
 
 ## Improvements

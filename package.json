@@ -1,7 +1,7 @@
 {
   "name": "urlbox",
-  "version": "2.0.2",
-  "description": "Generate screenshots, PDFs and other renders from URLs or HTML using the urlbox.io screenshot as a service API",
+  "version": "2.0.3",
+  "description": "Generate website screenshots, PDFs and other renders from URLs or HTML using the urlbox.io website screenshot API",
   "scripts": {
     "test": "vitest --run",
     "test:watch": "vitest",
@@ -22,7 +22,20 @@
     "url": "git+https://github.com/urlbox/urlbox-node.git"
   },
   "keywords": [
+    "website screenshot",
+    "website screenshot api",
+    "website screenshots",
+    "website snapshot",
+    "screenshot api",
+    "screenshot service",
+    "puppeteer screenshot",
+    "playwright screenshot",
+    "screenshot as a service",
+    "chrome screenshot",
+    "headless chrome",
+    "html to pdf",
     "screenshots",
+    "snapshot",
     "urlbox",
     "urlbox.io",
     "phantom",
@@ -33,12 +46,16 @@
     "headless",
     "chrome",
     "blink",
-    "render",
-    "page",
+    "url capture",
+    "url render",
+    "render website",
+    "capture website",
+    "page capture",
     "webkit",
     "webkit2png",
+    "selenium screenshot",
     "url2png",
-    "fullpage",
+    "fullpage screenshot",
     "fullheight"
   ],
   "author": "Chris Roebuck",
@@ -53,9 +70,10 @@
     "qs": "^6.11.2"
   },
   "devDependencies": {
-    "@types/crypto-js": "^4.1.3",
-    "@types/qs": "^6.9.9",
-    "typescript": "^5.2.2",
-    "vitest": "^0.34.6"
+    "@types/crypto-js": "^4.2.1",
+    "@types/node": "^20.11.2",
+    "@types/qs": "^6.9.11",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.0"
   }
 }
