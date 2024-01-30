@@ -223,7 +223,7 @@ test("cookies", () => {
     url: "bbc.co.uk",
     cookie: [
       "CookieOptIn=true;Path=/;Domain=.marktplaats.nl;Expires=Fri, 01-Jan-2027 15:19:58 GMT",
-      "LoggedIn=true;Path=/;Domain=.urlbox.io;Max-Age=10000",
+      "LoggedIn=true;Path=/;Domain=.urlbox.com;Max-Age=10000",
     ],
   };
   const query =

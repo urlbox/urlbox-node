@@ -1,8 +1,8 @@
 # urlbox-node
 
-Quickly generate screenshots, PDFs and other renders using the urlbox.io screenshot as a service API.
+Quickly generate screenshots, PDFs and other renders using the urlbox screenshot as a service API.
 
-Signup at [Urlbox.io](https://urlbox.io) to get an API key and secret.
+Signup at [Urlbox](https://urlbox.com) to get an API key and secret.
 
 ## Installation
 
@@ -15,10 +15,10 @@ npm install urlbox --save
 ```js
 import Urlbox from "urlbox";
 
-// Get your API key and secret from urlbox.io
+// Get your API key and secret from urlbox.com
 const urlbox = Urlbox(YOUR_API_KEY, YOUR_API_SECRET);
 
-// See all urlbox screenshot options at urlbox.io/docs
+// See all urlbox screenshot options at urlbox.com/docs
 const options = {
   url: "github.com",
   thumb_width: 600,

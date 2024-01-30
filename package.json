@@ -1,7 +1,7 @@
 {
   "name": "urlbox",
   "version": "2.0.3",
-  "description": "Generate website screenshots, PDFs and other renders from URLs or HTML using the urlbox.io website screenshot API",
+  "description": "Generate website screenshots, PDFs and other renders from URLs or HTML using the urlbox website screenshot API",
   "scripts": {
     "test": "vitest --run",
     "test:watch": "vitest",
@@ -38,6 +38,7 @@
     "snapshot",
     "urlbox",
     "urlbox.io",
+    "urlbox.com",
     "phantom",
     "phantomjs",
     "screenshot",
