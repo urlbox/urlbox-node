@@ -1,6 +1,6 @@
 "use strict";
 import qs from "qs";
-import hmacSha256 from "crypto-js/hmac-sha256.js";
+import { createHmac } from "crypto";
 import { RenderOptions } from "./types";
 
 const DEFAULT_PREFIX = "https://api.urlbox.io/v1/";
@@ -31,9 +31,8 @@ export default (
   };
 };
 
-const generateToken = (queryString: string, secret: string) => {
-  return hmacSha256(queryString, secret);
-};
+const generateToken = (queryString: string, secret: string): string =>
+  createHmac("sha256", secret).update(queryString).digest("hex");
 
 const toQueryString = (options: RenderOptions) => {
   const filter = (key: string, value: any) => {
