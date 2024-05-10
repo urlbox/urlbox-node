@@ -1,6 +1,6 @@
 "use strict";
 import qs from "qs";
-import { createHmac } from "crypto";
+import { createHmac } from "node:crypto";
 import { RenderOptions } from "./types";
 
 const DEFAULT_PREFIX = "https://api.urlbox.io/v1/";
