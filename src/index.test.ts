@@ -1,6 +1,6 @@
 "use strict";
 import { expect, test } from "vitest";
-import crypto from "crypto";
+import crypto from "node:crypto";
 import qs from "qs";
 import urlboxFactory from "./";
 import { RenderOptions } from "types";

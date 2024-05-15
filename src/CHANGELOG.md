@@ -1,8 +1,22 @@
+# v2.2.0
+
+## Improvements
+
+- Change `crypto` import to `node:crypto` to be compatible with cloudflare workers, thanks to [drush](https://github.com/drush) in [#21](https://github.com/urlbox/urlbox-node/pull/21)
+- Updated dependencies
+
+# v2.1.0
+
+## Improvements
+
+- Move to nodejs crypto, remove cryptojs
+- Remove lodash
+
 # v2.0.3
 
 ## Improvements
 
-- Export `RenderOptions` type, thanks to [DigiPie](https://github.com/DigiPie) [#17](https://github.com/urlbox/urlbox-node/pull/17)
+- Export `RenderOptions` type, thanks to [DigiPie](https://github.com/DigiPie) in [#17](https://github.com/urlbox/urlbox-node/pull/17)
 - Updated dependencies
 
 # v2.0.2
