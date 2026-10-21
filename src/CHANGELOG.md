@@ -1,3 +1,18 @@
+# v2.3.0
+
+## Features
+
+- Add the `Urlbox` API client: `render`, `renderAsync`, `getRender`, `waitForRender` and `generateRenderLink`
+- Add `verifyWebhookSignature` and `parseWebhook` for `X-Urlbox-Signature` webhooks, including secret rotation
+- Add `UrlboxError`, `UrlboxRenderFailedError` and `UrlboxWebhookSignatureError`
+- Add response and webhook types (`RenderResult`, `RenderStatus`, `WebhookEvent`, ...)
+
+## Improvements
+
+- `RenderOptions` is now generated from the API's option schema (387 options, with descriptions). Options from earlier releases that the API no longer lists are kept as deprecated fields
+- CommonJS consumers now get type declarations, and `exports` lists `types` for both `import` and `require`
+- Test files are no longer included in the published package
+
 # v2.2.0
 
 ## Improvements

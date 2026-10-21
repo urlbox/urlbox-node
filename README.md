@@ -10,7 +10,105 @@ Signup at [Urlbox](https://urlbox.com) to get an API key and secret.
 npm install urlbox --save
 ```
 
-## Example
+## API client
+
+`Urlbox` calls the render API directly. It needs Node 18+ (or any runtime with a global `fetch`; pass your own as `fetch` otherwise) and both your API key and secret, so use it server-side only.
+
+```ts
+import { Urlbox } from "urlbox";
+
+const urlbox = new Urlbox({
+  apiKey: process.env.URLBOX_API_KEY!,
+  secret: process.env.URLBOX_SECRET!,
+});
+
+// Render and wait for the result (POST /v1/render/sync)
+const result = await urlbox.render({
+  url: "https://example.com",
+  format: "png",
+  full_page: true,
+});
+console.log(result.renderUrl, result.size);
+
+// Queue a render (POST /v1/render/async) and poll for it
+const { renderId } = await urlbox.renderAsync({
+  url: "https://example.com",
+  webhook_url: "https://yourapp.com/webhooks/urlbox",
+});
+const status = await urlbox.getRender(renderId); // created | retrying | succeeded | failed | not-found
+const done = await urlbox.waitForRender(renderId, { intervalMs: 2000, timeoutMs: 120_000 });
+
+// Signed render link, the same as the default export's generateRenderLink
+const link = urlbox.generateRenderLink({ url: "https://example.com" });
+```
+
+Constructor options: `apiKey`, `secret`, `baseUrl` (default `https://api.urlbox.com`), `fetch`, and `timeoutMs` (per request, default 120000).
+
+`RenderOptions` is generated from the API's option schema, so every option is typed and documented in your editor. See [urlbox.com/docs](https://urlbox.com/docs) for the full reference.
+
+### Errors
+
+Failed requests throw `UrlboxError`:
+
+```ts
+import { UrlboxError, UrlboxRenderFailedError } from "urlbox";
+
+try {
+  await urlbox.render({ url: "https://example.com" });
+} catch (err) {
+  if (err instanceof UrlboxError) {
+    err.status; // HTTP status (0 for network errors and timeouts)
+    err.message; // from the x-urlbox-error-message header or the body
+    err.code; // e.g. "InvalidOptions"
+    err.requestId; // x-urlbox-request-id, quote it to support
+    err.rateLimit; // { limit, remaining, reset, retryAfter } when present
+  }
+}
+```
+
+`waitForRender` throws `UrlboxRenderFailedError` (a subclass of `UrlboxError`) when the render fails, and a `UrlboxError` with code `WAIT_TIMEOUT` if it does not finish in time.
+
+## Verifying webhooks
+
+Urlbox signs every webhook with the `X-Urlbox-Signature` header: `t=<unix seconds>,sha256=<hex>`, with one `sha256` entry per active secret while you rotate. Verify it against the **raw request body**, exactly as received. Re-serialising parsed JSON will not match.
+
+```ts
+import express from "express";
+import { parseWebhook, UrlboxWebhookSignatureError } from "urlbox";
+
+const app = express();
+
+app.post(
+  "/webhooks/urlbox",
+  express.raw({ type: "application/json" }), // keep the body as a Buffer
+  (req, res) => {
+    try {
+      const event = parseWebhook({
+        header: req.get("x-urlbox-signature"),
+        rawBody: req.body, // string or Buffer
+        secret: process.env.URLBOX_WEBHOOK_SECRET!, // or [newSecret, oldSecret]
+      });
+      if (event.event === "render.succeeded") {
+        console.log(event.renderId, event.result.renderUrl);
+      } else {
+        console.log(event.renderId, event.error.message);
+      }
+      res.sendStatus(200);
+    } catch (err) {
+      if (err instanceof UrlboxWebhookSignatureError) return res.sendStatus(400);
+      throw err;
+    }
+  }
+);
+```
+
+`verifyWebhookSignature` takes the same arguments and returns a boolean. Signatures older than `toleranceSeconds` (default 300) are rejected; pass `0` to turn the check off.
+
+## Render links
+
+The default export generates render links: URLs you can put straight into an `<img>` tag or link to.
+
+### Example
 
 ```js
 import Urlbox from "urlbox";
