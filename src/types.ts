@@ -2,7 +2,7 @@ import type {
   GeneratedRenderOptionFields,
   HtmlInput,
   UrlInput,
-} from "./render-options.generated";
+} from "./render-options.generated.js";
 
 type LegacyEasing = "linear.in" | "linear.out" | "linear.inout";
 

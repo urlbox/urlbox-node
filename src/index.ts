@@ -1,66 +1,25 @@
 "use strict";
-import qs from "qs";
-import { createHmac } from "node:crypto";
-import { RenderOptions } from "./types";
+import { buildRenderLink } from "./render-link.js";
+import type { RenderOptions } from "./types.js";
 
 const DEFAULT_PREFIX = "https://api.urlbox.io/v1/";
-const DEFAULT_OPTIONS = {
-  format: "png",
-};
 
 export default (
   key: string,
   secret?: string,
-  prefix: string = DEFAULT_PREFIX
+  prefix: string = DEFAULT_PREFIX,
 ) => {
   return {
     generateRenderLink: (options: RenderOptions) => {
       if (!secret) {
         throw new Error("your secret is required");
       }
-      options = validateOptions(options);
-      const query = toQueryString(options);
-      const token = generateToken(query, secret);
-      return `${prefix}${key}/${token}/${options.format || "png"}?${query}`;
+      return buildRenderLink(prefix, key, options, secret);
     },
-    generateInsecureRenderLink: (options: RenderOptions) => {
-      options = validateOptions(options);
-      const query = toQueryString(options);
-      return `${prefix}${key}/${options.format || "png"}?${query}`;
-    },
+    generateInsecureRenderLink: (options: RenderOptions) =>
+      buildRenderLink(prefix, key, options),
   };
 };
 
-const generateToken = (queryString: string, secret: string): string =>
-  createHmac("sha256", secret).update(queryString).digest("hex");
+export type { RenderOptions };
 
-const toQueryString = (options: RenderOptions) => {
-  const filter = (key: string, value: any) => {
-    if (key === "format" || key === "token" || !value) {
-      return;
-    }
-    return value;
-  };
-
-  return qs.stringify(options, {
-    filter,
-    arrayFormat: "repeat",
-  });
-};
-
-const validateOptions = (options: RenderOptions) => {
-  if (!options) {
-    throw new Error("no options object passed");
-  }
-  if (options.url && typeof options.url !== "string") {
-    throw new Error(
-      "url should be of type string (something like www.google.com)"
-    );
-  }
-  if (!options.url && !options.html) {
-    throw new Error("url or html option is required");
-  }
-  return Object.assign({}, DEFAULT_OPTIONS, options);
-};
-
-export { RenderOptions };
