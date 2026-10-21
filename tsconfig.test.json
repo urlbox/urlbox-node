@@ -1,0 +1,1 @@
+{"extends":"./tsconfig-base.json","compilerOptions":{"noEmit":true,"module":"esnext"},"exclude":["node_modules","dist"]}
