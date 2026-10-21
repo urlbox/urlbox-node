@@ -23,3 +23,31 @@ export default (
 
 export type { RenderOptions };
 
+export { Urlbox } from "./client.js";
+export type { UrlboxOptions, WaitForRenderOptions } from "./client.js";
+export { verifyWebhookSignature, parseWebhook } from "./webhooks.js";
+export type { VerifyWebhookArgs } from "./webhooks.js";
+export {
+  UrlboxError,
+  UrlboxRenderFailedError,
+  UrlboxWebhookSignatureError,
+} from "./errors.js";
+export type { RateLimitInfo } from "./errors.js";
+export type {
+  RenderResult,
+  AsyncRenderCreated,
+  RenderStatus,
+  RenderPending,
+  RenderSucceeded,
+  RenderFailed,
+  RenderNotFound,
+  RenderResponseInfo,
+  ThumbnailResult,
+  SliceResult,
+  BlockDetectionResult,
+  UnblockSummary,
+  WebhookEvent,
+  WebhookMeta,
+  WebhookRenderSucceeded,
+  WebhookRenderFailed,
+} from "./responses.js";
