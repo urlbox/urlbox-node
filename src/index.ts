@@ -3,7 +3,7 @@ import qs from "qs";
 import { createHmac } from "node:crypto";
 import { RenderOptions } from "./types";
 
-const DEFAULT_PREFIX = "https://api.urlbox.io/v1/";
+const DEFAULT_PREFIX = "https://api.urlbox.com/v1/";
 const DEFAULT_OPTIONS = {
   format: "png",
 };

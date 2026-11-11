@@ -7,7 +7,7 @@ import { RenderOptions } from "types";
 
 const myapikey = "MY_API_KEY";
 const mysecret = "secret";
-const prefix = "https://api.urlbox.io/v1/";
+const prefix = "https://api.urlbox.com/v1/";
 const urlbox = urlboxFactory(myapikey, mysecret);
 
 const toQuery = (options: RenderOptions) =>
@@ -29,7 +29,7 @@ test("should return a url with a valid token and query string", () => {
     .update(query)
     .digest("hex");
   expect(renderLink).toEqual(
-    "https://api.urlbox.io/v1/" + myapikey + "/" + token + "/png?" + query
+    "https://api.urlbox.com/v1/" + myapikey + "/" + token + "/png?" + query
   );
 });
 test("should return a url with a valid token and query string with width param", () => {
@@ -169,7 +169,7 @@ test("removes false values from query", () => {
     .digest("hex");
 
   expect(renderLink).toEqual(
-    "https://api.urlbox.io/v1/" + myapikey + "/" + token + "/png?" + query
+    "https://api.urlbox.com/v1/" + myapikey + "/" + token + "/png?" + query
   );
 });
 test("removes 0 values from query", () => {
@@ -188,7 +188,7 @@ test("removes 0 values from query", () => {
     .digest("hex");
 
   expect(renderLink).toEqual(
-    "https://api.urlbox.io/v1/" + myapikey + "/" + token + "/png?" + query
+    "https://api.urlbox.com/v1/" + myapikey + "/" + token + "/png?" + query
   );
 });
 test("kitchen sink", () => {
