@@ -1,3 +1,9 @@
+# v2.3.0
+
+## Improvements
+
+- Default to `api.urlbox.com` instead of `api.urlbox.io` in [#23](https://github.com/urlbox/urlbox-node/pull/23)
+
 # v2.2.0
 
 ## Improvements
